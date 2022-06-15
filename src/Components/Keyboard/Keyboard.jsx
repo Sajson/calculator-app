@@ -5,14 +5,11 @@ import "../Keyboard/Keyboard.css";
 function Keyboard(props) {
   const [digit, setDigit] = useState("");
   const [first, setFirst] = useState();
-  const [result, setResult] = useState();
+  const [operation, setOperation] = useState("");
 
   const handleClick = (e) => {
-    if (digit[0] === "0" && e.target.value === "0") {
+    if (digit[0] === "0" && e.target.value === "0" && digit[1] === undefined) {
       setDigit("0");
-    } else if (digit[0] === "0") {
-      setDigit(digit.slice(0, 0));
-      setDigit(digit + e.target.value);
     } else {
       setDigit(digit + e.target.value);
     }
@@ -24,15 +21,47 @@ function Keyboard(props) {
 
   const handleReset = () => {
     setDigit("");
+    setOperation("");
+    setFirst("");
   };
 
   const handleSum = () => {
     setFirst(Number(digit));
+    setOperation("+");
     setDigit("+ ");
   };
 
+  const handleSubstract = () => {
+    setFirst(Number(digit));
+    setOperation("-");
+    setDigit("- ");
+  };
+
+  const handleDivide = () => {
+    setFirst(Number(digit));
+    setOperation("/");
+    setDigit("/ ");
+  };
+
+  const handleMultiply = () => {
+    setFirst(Number(digit));
+    setOperation("*");
+    setDigit("* ");
+  };
+
   const handleEqual = () => {
-    setDigit();
+    if (operation === "+") {
+      setDigit((first + Number(digit.slice(-2))).toString());
+    }
+    if (operation === "-") {
+      setDigit((first - Number(digit.slice(-2))).toString());
+    }
+    if (operation === "*") {
+      setDigit((first * Number(digit.slice(-2))).toString());
+    }
+    if (operation === "/") {
+      setDigit((first / Number(digit.slice(-2))).toString());
+    }
   };
 
   const buttons = [
@@ -53,6 +82,7 @@ function Keyboard(props) {
     "/",
     "X",
   ];
+
   const generated = [];
 
   buttons.forEach((e, i) => {
@@ -63,6 +93,42 @@ function Keyboard(props) {
           key={i}
           value={e}
           className="buttonBackground delBg"
+        />
+      );
+    } else if (i === 7) {
+      generated.push(
+        <Button
+          click={handleSum}
+          key={i}
+          value={e}
+          className="buttonBackground"
+        />
+      );
+    } else if (i === 11) {
+      generated.push(
+        <Button
+          click={handleSubstract}
+          key={i}
+          value={e}
+          className="buttonBackground"
+        />
+      );
+    } else if (i === 14) {
+      generated.push(
+        <Button
+          click={handleDivide}
+          key={i}
+          value={e}
+          className="buttonBackground"
+        />
+      );
+    } else if (i === 15) {
+      generated.push(
+        <Button
+          click={handleMultiply}
+          key={i}
+          value={e}
+          className="buttonBackground"
         />
       );
     } else {
@@ -95,7 +161,7 @@ function Keyboard(props) {
           value="RESET"
           className="col-span-2 resetBg"
         />
-        <Button click={handleSum} value="=" className="col-span-2 equalsBg" />
+        <Button click={handleEqual} value="=" className="col-span-2 equalsBg" />
       </div>
     </React.Fragment>
   );
