@@ -3,7 +3,10 @@ import React from "react";
 class Header extends React.Component {
   render() {
     return (
-      <div id="header" className="w-full flex flex-row justify-between">
+      <div
+        id="header"
+        className="w-full flex flex-row justify-between mb-4 text-white"
+      >
         <h1>Calc</h1>
         <div id="swtiches">
           <h3>THEME</h3>

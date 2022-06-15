@@ -1,0 +1,18 @@
+.resetBg {
+    background-color: hsl(225, 21%, 49%);
+    color: white !important;
+}
+
+.equalsBg {
+    background-color: hsl(6, 63%, 50%);
+    color: white !important;
+}
+
+.calcButton {
+    color: hsl(221, 14%, 31%);
+}
+
+.delBg {
+    background-color: hsl(225, 21%, 49%);
+    color: white !important;
+}
