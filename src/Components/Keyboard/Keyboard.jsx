@@ -4,151 +4,119 @@ import "../Keyboard/Keyboard.css";
 
 function Keyboard() {
   const [digit, setDigit] = useState(""); // hold state of display
-  const [first, setFirst] = useState(""); // hold first typed value
-  const [second, setSecond] = useState(""); // hold second typed value
+  const [memory, setMemory] = useState(""); // hold memory typed value
   const [operation, setOperation] = useState(""); // state of operation
   const [lastOperation, setLastOperation] = useState(""); // state of last operation
+  const [char, setChar] = useState("");
 
   const handleClick = (e) => {
     // if our display shows 0, we don't want to display another 0 without .
-    if (digit[0] === "0" && e.target.value === "0" && digit[1] === undefined) {
+    if (digit === "0" && e.target.value === "0" && digit[1] === undefined) {
       setDigit("0");
     } else {
-      setDigit(digit + e.target.value);
+      if (digit.length !== 25) {
+        setDigit(digit + e.target.value);
+      }
     }
   };
 
   // remove one character from display
   const handleDelete = () => {
-    setDigit(digit.slice(0, -1));
+    if (digit !== "Can't divide by zero!") {
+      setDigit(digit.slice(0, -1));
+    }
   };
 
   // resest all states and display
   const handleReset = () => {
     setDigit("");
     setOperation("");
-    setFirst("");
-    setSecond("");
+    setMemory("");
+    setChar("");
     setLastOperation("");
   };
 
   const handleSum = () => {
     // if operation is set to "+" we don't need to set the operation once again
-    if (operation !== "+") {
-      setFirst(parseFloat(digit));
+    if (char !== "+") {
+      setMemory(parseFloat(digit));
       setOperation("+");
-      setDigit("+ ");
+      setChar("+");
+      setDigit("");
     }
   };
 
   const handleSubstract = () => {
-    if (operation !== "-") {
-      setFirst(parseFloat(digit));
+    if (char !== "-") {
+      setMemory(parseFloat(digit));
       setOperation("-");
-      setDigit("- ");
+      setChar("-");
+      setDigit("");
     }
   };
 
   const handleDivide = () => {
-    if (operation !== "/") {
-      setFirst(parseFloat(digit));
+    if (char !== "/") {
+      setMemory(parseFloat(digit));
       setOperation("/");
-      setDigit("/ ");
+      setChar("/");
+      setDigit("");
     }
   };
 
   const handleMultiply = () => {
-    if (operation !== "*") {
-      setFirst(parseFloat(digit));
+    if (char !== "*") {
+      setMemory(parseFloat(digit));
       setOperation("*");
-      setDigit("* ");
+      setChar("*");
+      setDigit("");
     }
   };
 
   const handleEqual = () => {
     // checking for operation
-    if (operation === "+" || lastOperation === "+") {
-      if (operation === "+") {
+    if (operation === "+") {
+      setChar("");
+      if (lastOperation === "+") {
+        setDigit((memory + parseFloat(digit)).toString());
+      } else {
+        setDigit((memory + parseFloat(digit)).toString());
+        setMemory(parseFloat(digit));
         setLastOperation(operation);
-        setOperation("");
-      } else {
-        setLastOperation("+");
-      }
-      // if we don't have in memory second argument passed to calculator, we need to pass it to our second state
-      if (second === "") {
-        setDigit((first + parseFloat(digit.slice(-2))).toString()); // slice method is used to delete operation character from string
-        let temp = parseFloat(digit.slice(-2));
-        setSecond(temp);
-      } else {
-        if (digit.includes("+ ")) {
-          setSecond("");
-          setDigit((first + parseFloat(digit.slice(-2))).toString());
-          setSecond(parseFloat(digit.slice(-2)));
-        } else {
-          setDigit((parseFloat(digit) + second).toString());
-        }
       }
     }
-    if (operation === "-" || lastOperation === "-") {
-      if (operation === "-") {
+    if (operation === "-") {
+      setChar("");
+      if (lastOperation === "-") {
+        setDigit((parseFloat(digit) - memory).toString());
+      } else {
+        setDigit((memory - parseFloat(digit)).toString());
+        setMemory(parseFloat(digit));
         setLastOperation(operation);
-        setOperation("");
-      } else {
-        setLastOperation("-");
-      }
-      if (second === "") {
-        setDigit((first - parseFloat(digit.slice(-2))).toString());
-        let temp = parseFloat(digit.slice(-2));
-        setSecond(temp);
-      } else {
-        if (digit.includes("- ")) {
-          setSecond("");
-          setDigit((first - parseFloat(digit.slice(-2))).toString());
-          setSecond(parseFloat(digit.slice(-2)));
-        } else {
-          setDigit((parseFloat(digit) - parseFloat(second)).toString());
-        }
       }
     }
-    if (operation === "*" || lastOperation === "*") {
-      if (operation === "*") {
+    if (operation === "*") {
+      setChar("");
+      if (lastOperation === "*") {
+        setDigit((memory * parseFloat(digit)).toString());
+      } else {
+        setDigit((memory * parseFloat(digit)).toString());
+        setMemory(parseFloat(digit));
         setLastOperation(operation);
-        setOperation("");
-      } else {
-        setLastOperation("*");
-      }
-      if (second === "") {
-        setDigit((first * parseFloat(digit.slice(-2))).toString()); // slice method is used to delete operation character from string
-        let temp = parseFloat(digit.slice(-2));
-        setSecond(temp);
-      } else {
-        if (digit.includes("* ")) {
-          setSecond("");
-          setDigit((first * parseFloat(digit.slice(-2))).toString());
-          setSecond(parseFloat(digit.slice(-2)));
-        } else {
-          setDigit((parseFloat(digit) * second).toString());
-        }
       }
     }
-    if (operation === "/" || lastOperation === "/") {
-      if (operation === "/") {
-        setLastOperation(operation);
-        setOperation("");
+    if (operation === "/") {
+      setChar("");
+      if (parseFloat(digit) === 0 || digit === "Can't divide by zero!") {
+        setDigit("Can't divide by zero!");
       } else {
-        setLastOperation("/");
-      }
-      if (second === "") {
-        setDigit((first / parseFloat(digit.slice(-2))).toString()); // slice method is used to delete operation character from string
-        let temp = parseFloat(digit.slice(-2));
-        setSecond(temp);
-      } else {
-        if (digit.includes("/ ")) {
-          setSecond("");
-          setDigit((first / parseFloat(digit.slice(-2))).toString());
-          setSecond(parseFloat(digit.slice(-2)));
+        setDigit((memory / parseFloat(digit)).toString());
+        if (lastOperation === "/") {
+          setDigit((memory / parseFloat(digit)).toString());
         } else {
-          setDigit((parseFloat(digit) / second).toString());
+          setDigit((memory / parseFloat(digit)).toString());
+          setMemory(parseFloat(digit));
+          setLastOperation(operation);
         }
       }
     }
@@ -237,8 +205,9 @@ function Keyboard() {
     <React.Fragment>
       <div
         id="calcDisplay"
-        className="w-full h-1/6 rounded-3xl mb-4 flex justify-end items-center"
+        className="w-full h-1/6 rounded-3xl mb-4 flex justify-between items-center"
       >
+        <p className="ml-3 text-3xl text-white">{char}</p>
         <p className="mr-3 text-3xl text-white">{digit}</p>
       </div>
       <div
