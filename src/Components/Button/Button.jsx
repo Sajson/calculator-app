@@ -10,7 +10,7 @@ function Button(props) {
         value={props.value}
         type="button"
         onClick={props.click}
-        className="mt-1"
+        className="mt-1 w-full h-full"
       />
     </div>
   );
