@@ -4,7 +4,7 @@ import "../Button/Button.css";
 function Button(props) {
   return (
     <div
-      className={`calcButton w-full h-3/5 rounded-2xl flex justify-center items-center ${props.className}`}
+      className={`calcButton w-full h-3/5 rounded-md flex justify-center items-center ${props.className}`}
     >
       <input
         value={props.value}

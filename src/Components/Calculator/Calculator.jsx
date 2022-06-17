@@ -9,7 +9,7 @@ function Calculator() {
       id="calcWrapper"
       className="flex flex-col items-center justify-center h-screen"
     >
-      <div id="calculator" className="w-1/3 flex flex-col items-center h-3/4">
+      <div id="calculator" className="flex flex-col items-center h-3/4">
         <Header />
         <Keyboard />
       </div>
