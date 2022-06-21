@@ -1,3 +1,39 @@
+.buttonBackground {
+    background-color: hsl(30, 25%, 89%);
+    box-shadow: 0px 4px 0px 0px hsl(28, 16%, 65%);
+}
+
+.buttonBackground:hover {
+    background-color: white;
+}
+
+.buttonBackground:active {
+    box-shadow: 0 2px hsl(28, 16%, 65%);
+    transform: translateY(1px);
+}
+
+.displayColors {
+    color: white;
+}
+
+.headerColors {
+    color: white;
+}
+
+#theme-toggle {
+    background-color: hsl(223, 31%, 20%);
+}
+
+.custom-radio-button .checkmark {
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    background-color: hsl(6, 63%, 50%);
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
 .resetBg {
     background-color: hsl(225, 21%, 49%);
     color: white !important;
@@ -45,4 +81,17 @@
 .delBg:active {
     box-shadow: 0 2px hsl(225, 21%, 49%) !important;
     transform: translateY(1px) !important;
+}
+
+#keyboard {
+    background-color: hsl(223, 31%, 20%);
+}
+
+#calcDisplay {
+    background-color: hsl(224, 36%, 15%);
+}
+
+body,
+html {
+    background: hsl(222, 26%, 31%);
 }

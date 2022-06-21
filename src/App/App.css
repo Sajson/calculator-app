@@ -2,3 +2,31 @@
     width: 100vw;
     height: 100vh;
 }
+
+.numberStyles {
+    width: 20px;
+    height: 20px;
+}
+
+.custom-radio-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-radio-button input {
+    display: none;
+}
+
+.custom-radio-button input:checked+.checkmark {
+    opacity: 1;
+    display: inline-block;
+}
+
+.custom-radio-button input:checked+.checkmark {
+    opacity: 1;
+    display: inline-block;
+}

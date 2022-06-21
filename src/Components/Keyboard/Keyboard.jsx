@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Button from "../Button/Button";
-import "../Keyboard/Keyboard.css";
 
 function Keyboard() {
   const [digit, setDigit] = useState(""); // hold state of display
@@ -160,7 +159,7 @@ function Keyboard() {
           click={handleDelete}
           key={i}
           value={e}
-          className="buttonBackground delBg"
+          className="buttonBackground delBg text-3xl"
         />
       );
     }
@@ -192,20 +191,24 @@ function Keyboard() {
         id="calcDisplay"
         className="w-full h-1/6 rounded-md mb-4 flex justify-between items-center"
       >
-        <p className="ml-3 text-3xl text-white">{char}</p>
-        <p className="mr-3 text-3xl text-white">{digit}</p>
+        <p className="ml-3 text-4xl displayColors">{char}</p>
+        <p className="mr-3 text-4xl displayColors">{digit}</p>
       </div>
       <div
         id="keyboard"
-        className="grid grid-cols-4 grid-rows-5 h-full gap-4 gap-y-0 w-full items-center text-center rounded-md text-white py-5 px-6 text-3xl"
+        className="grid grid-cols-4 grid-rows-5 h-full gap-4 gap-y-0 w-full items-center text-center rounded-md displayColors py-5 px-6 text-4xl"
       >
         {generated}
         <Button
           click={handleReset}
           value="RESET"
-          className="col-span-2 resetBg"
+          className="col-span-2 resetBg text-3xl"
         />
-        <Button click={handleEqual} value="=" className="col-span-2 equalsBg" />
+        <Button
+          click={handleEqual}
+          value="="
+          className="col-span-2 equalsBg text-3xl"
+        />
       </div>
     </React.Fragment>
   );
